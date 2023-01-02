@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Quiz</title>
+    <style>
+        body{
+            background-image: url('background.jpg');
+            font-family: 'Courier New', Courier, monospace;
+        }
+        #online-play{
+            color:red;
+            text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple;
+        }
+        #friend-play{
+            color:lightblue;
+            text-shadow: 0 0 5px blue, 0 0 10px skyblue, 0 0 15px skyblue;
+        }
+        #quiz-play{
+            color:orange;
+            text-shadow: 0 0 5px red, 0 0 10px red, 0 0 15px red;
+        }
+        #my-play{
+            text-shadow: 0 0 5px #0000EE, 0 0 10px #0000EE, 0 0 15px #0000EE;
+            color:skyblue;
+        }
+        h1{
+            font-size: 50px;
+            cursor: pointer;
+            background-color: #D4E4F3;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1 id="online-play">PLAY ONLINE </h1>
+        <h1 id="friend-play">PLAY WITH FRIENDS</h1>
+        <h1 id="quiz-play">MAKE QUIZ FOR FRIENDS</h1>
+        <h1 class='glowing-text'id="my-play">MY QUIZZES</h1>
+    </center>
+    <script>
+        let playFBtn = document.getElementById('friend-play')
+        playFBtn.onclick = function()
+        {
+            window.open("join.html", "blank")
+        }
+    </script>
+</body>
+</html>

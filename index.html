@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            background-image: url('background.jpg');
+            font-family: 'Courier New', Courier, monospace;
+        }
+        #header{
+            font-size: 80px;
+            color:skyblue;
+        }
+        #play-btn{
+            font-weight: bold;
+            font-size: 80px;
+
+            color:blueviolet;
+            background-color: #ADD8E6;
+            cursor: pointer;
+        }
+    </style>
+    <title>Online Quiz</title>
+</head>
+<body>
+    <center>
+    <h1 id='header'>QUIZ</h1>
+    <h1 id="play-btn">PLAY</h1>
+    </center>
+    <script>
+        let playBtn = document.getElementById('play-btn')
+        playBtn.onclick = function(){
+            location.href='main.html'
+        }
+    </script>
+</body>
+</html>
