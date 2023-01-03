@@ -29,7 +29,7 @@
         h1{
             font-size: 50px;
             cursor: pointer;
-            background-color: #D4E4F3;
+            background-image: url('background-img.jpg');
         }
     </style>
 </head>
@@ -45,6 +45,11 @@
         playFBtn.onclick = function()
         {
             window.open("join.html", "blank")
+        }
+        let quizPlay = document.getElementById('quiz-play')
+        quizPlay.onclick = () =>
+        {
+            window.open("add-quiz.html", "blank")
         }
     </script>
 </body>
