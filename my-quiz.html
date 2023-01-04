@@ -86,20 +86,24 @@ let brs = document.createElement('br')
 			docRef.doc(docId).get().then((doc) => {
     if (doc.exists) {
 		let userName = document.createElement('div')
-        let userScore = document.createElement('div')
+        let userScore = document.createElement('span')
 		wQuiz = doc.data().UserData
 			for(let i = 0; i < wQuiz.length; i++)
 			{
-		userName.innerText += "Player name : " + wQuiz[i].Name + '\n'
-        userScore.innerText += "Score : " + wQuiz[i].Score + '\n'
+                console.log(i)
+		userName.innerText += "Player name : " + wQuiz[i].Name + '\n' + "Score: " + wQuiz[i].Score + '\n' + '\n'
+        //userName.append(brs)
+        //userScore.innerText += "Score : " + wQuiz[i].Score + '\n'
+        console.log(userName)
+       // userName.append(brs)
 		quizTitle.append(userName)
-        quizTitle.append(userScore)
+       // quizTitle.append(brs)
         quizTitle.append(vHr)
 			}
     } else {
         console.log("No such document!");
     }
-}).catch((error) =>{
+}).catch((error) => {
     console.log("Error getting document:", error);
 });
 			}
