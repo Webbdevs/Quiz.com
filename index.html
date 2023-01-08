@@ -4,38 +4,59 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="Online Quiz Website, Quiz Website, Online Quiz, Quiz maker, Quiz maker for free, Online Quiz Website free, Online Quiz free, Quiz Website free">
+    <title>Online Quiz</title>
     <style>
         body{
             background-image: url('background.jpg');
             font-family: 'Courier New', Courier, monospace;
         }
-        #header{
-            text-shadow: 0 0 5px black, 0 0 10px white, 0 0 15px wheat;
-            font-size: 80px;
-            color:skyblue;
+        #online-play{
+            color:red;
+            text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple;
         }
-        #play-btn{
-            font-weight: bold;
-            font-size: 80px;
-
-            color:white;
-            text-shadow: 0 0 5px black, 0 0 10px white, 0 0 15px wheat;
-            background-image: url('background-img.jpg');
+        #friend-play{
+            color:red;
+            text-shadow: 0 0 5px white, 0 0 10px red, 0 0 15px skyblue;
+        }
+        #quiz-play{
+            color:orange;
+            text-shadow: 0 0 5px red, 0 0 10px red, 0 0 15px red;
+        }
+        #my-play{
+            text-shadow: 0 0 5px white, 0 0 10px lime, 0 0 15px limegreen;
+            color:limegreen;
+        }
+        h1{
+            font-size: 50px;
             cursor: pointer;
+            background-color: lightblue;
+            /*background-image: url('background-img.jpg');*/
         }
     </style>
-    <title>Online Quiz</title>
 </head>
 <body>
     <center>
-    <h1 id='header'>QUIZ</h1>
-    <h1 id="play-btn">PLAY</h1>
+        <div id="page-container">
+        <h1 id="friend-play">PLAY WITH FRIENDS</h1>
+        <h1 id="quiz-play">MAKE QUIZ FOR FRIENDS</h1>
+        <h1 class='glowing-text'id="my-play">MY QUIZZES</h1>
+        </div>
     </center>
     <script>
-        let playBtn = document.getElementById('play-btn')
-        playBtn.onclick = function(){
-            location.href='main.html'
+        let playFBtn = document.getElementById('friend-play')
+        playFBtn.onclick = function()
+        {
+            window.open("join.html", "blank")
+        }
+        let quizPlay = document.getElementById('quiz-play')
+        quizPlay.onclick = () =>
+        {
+            window.open("add-quiz.html", "blank")
+        }
+        let myQuiz = document.getElementById('my-play')
+        myQuiz.onclick = () =>
+        {
+            window.open("my-quiz.html", "blank")
         }
     </script>
 </body>
