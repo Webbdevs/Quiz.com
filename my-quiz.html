@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>My Quizzes</title>
     <style>
         body{
             background-image: url('background.jpg');
             font-family: 'Courier New', Courier, monospace;
             color: white;
+            font-weight: bold;
         }
         #quiz-txt{
             font-size: 40px;
@@ -28,6 +30,17 @@
 }
 .quiz-names{
 	cursor:pointer;
+    font-size: 25px;
+}
+#unique-txt{
+    background: skyblue;
+}
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
 }
     </style>
 </head>
@@ -65,19 +78,51 @@ let brs = document.createElement('br')
 	{
 		querySnapshot.forEach((doc) =>
 		{
-		let quizTitle = document.createElement("h2")
+		let quizHeader = document.createElement("div")
+        let quizTitle = document.createElement('h2')
 		quizTitle.className = "quiz-names"
 		
 		quizTitle.addEventListener('click', function(e)
 		{
 			
 			let hid = document.createElement('span')
+            let copyIcon = document.createElement('span')
+            copyIcon.className = 'material-symbols-outlined'
 			hid.innerHTML = "This quiz's competends and their scores"
 			let uniqueHeader = document.createElement("div")
+            uniqueHeader.id='unique-txt'
             let vHr = document.createElement('hr')
 			if(e.target.innerText==doc.data().Title)
 			{
-			uniqueHeader.innerText = doc.data().UniqueCode
+                uniqueHeader.innerHTML = `${doc.data().UniqueCode}`
+
+/*let copyInput = document.createElement('input');
+copyInput.style.opacity = 0;
+copyInput.value = doc.data().UniqueCode;
+uniqueHeader.appendChild(copyInput);
+
+let copyBtn = document.createElement('span');
+copyBtn.innerText = 'content_copy';
+copyBtn.className = "material-symbols-outlined"
+uniqueHeader.appendChild(copyBtn);
+
+copyBtn.addEventListener('click', () => {
+  copyInput.setSelectionRange(0, copyInput.value.length);
+  copyInput.select();
+  document.execCommand('copy');
+
+  // Get the selected text
+  let selection = document.getSelection();
+
+  // Create a range that includes the contents of the copyInput element
+  let range = document.createRange();
+  range.selectNodeContents(copyInput);
+
+  // Add the range to the selection
+  selection.addRange(range);
+});*/
+
+
 			quizTitle.append(uniqueHeader)
 			quizTitle.append(brs)
 			quizTitle.append(hid)
@@ -95,6 +140,7 @@ let brs = document.createElement('br')
         //userName.append(brs)
         //userScore.innerText += "Score : " + wQuiz[i].Score + '\n'
         console.log(userName)
+        
        // userName.append(brs)
 		quizTitle.append(userName)
        // quizTitle.append(brs)
