@@ -136,7 +136,7 @@ transform: scale(1.2);
         let qNumCounter = 1
         let letters = ''
         let rand;
-        const str = 'qwertyuihjklasdfghjklvbnm#123456789' 
+        const str = '1234567890' 
         let strNum = "1234567890"
         let uniqueNum = ""
         function nextQ()
@@ -208,6 +208,11 @@ transform: scale(1.2);
                 aftQuiz.innerText = "Your quiz has been successfully submitted"
                   for(let i = 0; i < str.length; i++)
                   {
+                    if(i==4)
+                    {
+                        break;
+                    }
+                    else
                     rand = Math.floor(Math.random() * str.length)
                     letters+=str.charAt(rand)
                   }
