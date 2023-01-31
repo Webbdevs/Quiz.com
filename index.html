@@ -32,9 +32,19 @@
             background-color: lightblue;
             /*background-image: url('background-img.jpg');*/
         }
+        #text-container{
+	text-align:center;
+    color:white;
+    font-weight: bold;
+    font-size:20px;
+}
     </style>
 </head>
 <body>
+    <div id="text-container">
+        This is a website where you can make quizzes and send them to your friends.<br>
+        They could attend the quiz by entering the code that you get when you make a quiz
+        </div><br><br>
     <center>
         <div id="page-container">
         <h1 id="friend-play">PLAY WITH FRIENDS</h1>
@@ -43,6 +53,35 @@
         </div>
     </center>
     <script>
+        //to get and save the name of the user
+                let vName;
+                getName()
+        function getName()
+        {
+            if(localStorage.getItem('NAME')==null)
+            {
+                vName = prompt('Enter your name or nickname')
+            }
+            else 
+            return;
+        }
+        let i = 11
+
+        if(localStorage.getItem('NAME')==null)
+            {
+                while( i > 10)
+        {
+            if(vName==null || vName.length==0)
+        {
+            alert('Enter your name it is necessary')
+            getName()
+        }
+        else
+        localStorage.setItem('NAME', vName)
+        break;
+        }
+            }
+        //alert(vName)
         let playFBtn = document.getElementById('friend-play')
         playFBtn.onclick = function()
         {
