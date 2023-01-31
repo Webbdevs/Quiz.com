@@ -28,7 +28,7 @@
              height:150px;
              font-size: 30px;
              text-align: center;
-             display:none;
+
         }
         textarea::placeholder{
             color:yellow;
@@ -51,7 +51,7 @@
             border-radius: 10px;
             cursor: pointer;
             transition: transform 0.2s;
-            display: none;
+
         }
         #code-btn:hover{
             transform: scale(1.2);
@@ -102,8 +102,8 @@ background:limegreen;
 <body>
     <center>
     <h1 style="color: blueviolet; font-size: 45px;text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple;">PLAY WITH FRIENDS</h1>
-    <textarea placeholder="ENTER YOUR NAME" id="name-txt"></textarea><br>
-    <button id="name-btn">Submit</button>
+    <!--textarea placeholder="ENTER YOUR NAME" id="name-txt"></textarea><br>
+    <button id="name-btn">Submit</button-->
     </center>
     <center>
         <textarea placeholder="ENTER THE CODE" id="code-txt"></textarea><br>
@@ -183,7 +183,9 @@ let frstAnswer;
 
 let docRef = database.collection("Quiz-data")
 
-        let nameBtn = document.getElementById('name-btn')
+let arr = localStorage.getItem('QuizCode') ? JSON.parse(localStorage.getItem('QuizCode')) : [];
+let getArr = []
+        /*let nameBtn = document.getElementById('name-btn')
         nameBtn.onclick = () =>
         {
              nameId =  document.getElementById('name-txt').value
@@ -197,25 +199,45 @@ let docRef = database.collection("Quiz-data")
             document.getElementById('code-txt').style.display='inline'
             document.getElementById('code-btn').style.display='inline'
             nameBtn.style.display='none'
-        }
+        }*/
         let codeBtn = document.getElementById('code-btn')
         codeBtn.onclick = () =>
         {
-            quizId = document.getElementById('code-txt').value
-            if(quizId.length==0)
+            quizId = document.getElementById('code-txt')
+            //getArr.push(localStorage.getItem('QuizCode'))
+            
+            for(let i = 0; i < arr.length; i++)
+            {
+                if(quizId.value==arr[i])
+                {
+                    alert('You have attempted this quiz one time.You cannot attempt it')
+                quizId.value = ''
+                return;
+                }
+            }
+           /* if(quizId.value==localStorage.getItem('QuizCode'))
+            {
+                alert('You have attempted this quiz one time.You cannot attempt it')
+                quizId.value = ''
+                return;
+            }*/
+            if(quizId.value.length==0)
             {
                 alert('Enter the code')
                 return;
             }
             else
-            codeBtn.style.display='none'
-            document.getElementById('code-txt').style.display='none'
-            document.getElementById('quiz-container').style.visibility='visible'
+            codeBtn.style.display = 'none';
+    document.getElementById('code-txt').style.display = 'none';
+    document.getElementById('quiz-container').style.visibility = 'visible';
+    arr.push(quizId.value);
+    localStorage.setItem('QuizCode', JSON.stringify(arr));
+    console.log(arr);
           //  document.getElementById('quiz-container').classList.add('styleit')
 
 
 
-docRef.where("UniqueCode", "==", quizId)
+docRef.where("UniqueCode", "==", quizId.value)
 .get()
 .then((querySnapshot) =>
 {
@@ -250,13 +272,13 @@ docRef.where("UniqueCode", "==", quizId)
         let submitBtn = document.getElementById('submit-btn')
 	submitBtn.onclick = () =>
 	{
-		docRef.where("UniqueCode", "==",quizId)
+		docRef.where("UniqueCode", "==",quizId.value)
 .get()
 	.then((querySnapshot) =>
 	{
 		querySnapshot.forEach((doc) =>
 		{
-			if(quizId==doc.data().UniqueCode)
+			if(quizId.value==doc.data().UniqueCode)
 			{
 				docId = doc.id
 			}
@@ -309,7 +331,7 @@ docRef.where("UniqueCode", "==", quizId)
 				}
 				let obje = 
 				{
-				Name:nameId,
+				Name:localStorage.getItem('NAME'),
 				Score: score,
 				}
 				docRef.doc(docId).update({
