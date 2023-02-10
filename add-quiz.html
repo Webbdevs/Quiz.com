@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add quiz</title>
     <style>
+        input{
+            border-radius: 5px;
+        }
         body{
             font-family: 'Courier New', Courier, monospace;
             /*font-family: 'Comic Sans MS, Comic Sans, cursive';*/
@@ -28,6 +32,7 @@
 #q-text::placeholder{
     font-size: 25px;
     text-shadow: 0 0 5px white, 0 0 10px black, 0 0 15px white;
+    opacity: 0.5;
 }
 input{
     background-image: url('background-img.jpg');
@@ -71,6 +76,10 @@ transform: scale(1.2);
 #after-container{
     display: none;
 }
+#time-container{
+    display: none;
+}
+
     </style>
 </head>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -78,6 +87,13 @@ transform: scale(1.2);
 
 <body>
     <center>
+        <div id="time-container">
+            <h2>Enter the time for each question.<br>
+                If you want to enter minutes then eg:"1m"<br>
+                If you want to enter seconds then eg:"10s"<br>
+            </h2>
+            <input placeholder="10s" type="text" id="time-txt"><br><br>
+        </div>
         <div id="after-container">
             <h1 id="afQuiz"></h1>
             <h2 id="unique-code-text">Your unique code for this quiz</h2>
@@ -93,6 +109,8 @@ transform: scale(1.2);
 <input class="options" placeholder="OPTION  c"id="option-c">
 <input class="options" placeholder="OPTION  d"id="option-d"><br><br>
 <input id="answer-txt" placeholder="ANSWER"><br><br>
+<!--h3>Time</h3>
+<input id="time-txt" placeholder="eg:min = 1m sec = 10s"><br><br-->
 <button onclick="nextQ()" id="save-btn">SAVE AND ENTER NEXT QUESTION</button>
     </div><br>
     <button onclick='makeQuiz()' id="submit-btn">SUBMIT YOUR ANSWERS</button>
@@ -145,7 +163,11 @@ transform: scale(1.2);
         counter++;
         if(lastQ==counter)
         {
+
+           // alert('sui')
             document.getElementById('question-container').style.display='none'
+            document.getElementById('time-container').style.display='inline'
+            document.getElementById('header-2').style.display='none'
             console.log(arr)
             //arr.push(obj)
             let qText = document.getElementById('q-text')
@@ -197,6 +219,16 @@ transform: scale(1.2);
         }
         function makeQuiz()
         {     
+            let vText = document.getElementById('time-txt')
+            if(vText.value.length==0)
+            {
+                alert('Enter the time')
+                return;
+            }
+            let timeUnitVal = vText.value;
+            vText.value = timeUnitVal.substring(0, timeUnitVal.length - 1);
+
+            let timeNum = Number(vText.value)
             let quizTitle = prompt("Enter a title for this quiz to get this quiz's code later to share with your friends")
             
                 document.getElementById("header-2").style.display='none'
@@ -227,10 +259,12 @@ transform: scale(1.2);
                             localStorage.setItem("UniqueID", uniqueNum)
                         docRef
                             .add({
-                            Title:quizTitle,
+                                Title:quizTitle,
                                 UniqueId: localStorage.getItem("UniqueID"),
                                 UniqueCode: letters,
                                 QuizData: arr,
+                                TimeUnit:timeUnitVal.charAt(timeUnitVal.length - 1),
+                                TimeDuration:timeNum
                             })
                           }
                             else
@@ -240,6 +274,8 @@ transform: scale(1.2);
                                 UniqueId: localStorage.getItem("UniqueID"),
                                 UniqueCode: letters,
                                 QuizData: arr,
+                                TimeUnit:timeUnitVal.charAt(timeUnitVal.length - 1),
+                                TimeDuration:timeNum
                             })
         
                             
