@@ -97,13 +97,27 @@ background:limegreen;
 	display:none;
 	text-align:center;
 }
+/*#display-time{
+    width:100px;
+    height:100px;
+    border-radius: 50px;
+    background: white;
+    color:black;
+}*/
+#display-time{
+    font-size: 40px;
+    width:50px;
+    height:50px;
+    border-radius: 50px;
+    background: white;
+    color: black;
+    visibility: hidden;
+}
     </style>
 </head>
 <body>
     <center>
     <h1 style="color: blueviolet; font-size: 45px;text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple;">PLAY WITH FRIENDS</h1>
-    <!--textarea placeholder="ENTER YOUR NAME" id="name-txt"></textarea><br>
-    <button id="name-btn">Submit</button-->
     </center>
     <center>
         <textarea placeholder="ENTER THE CODE" id="code-txt"></textarea><br>
@@ -138,13 +152,20 @@ background:limegreen;
             </center>
             </center>
             </div>
+            <center>
+                <div id="display-time">10</div>
+            </center>
             <h1 id="result"></h1>
             
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
     <script>
-                    function getVal(e)
+        let secInterval;
+        let time;
+        let globalTime;
+
+    function getVal(e)
 {
 vAnswer = e.target.parentElement.innerText
 ansCol = e.target.parentElement
@@ -167,6 +188,7 @@ ansCol = e.target.parentElement
 };
 firebase.initializeApp(firebaseConfig)
 let database = firebase.firestore()
+//defining all the variables needed for the code
 let aCounter = 0;
 let change_text1;
 let change_text2;
@@ -185,21 +207,7 @@ let docRef = database.collection("Quiz-data")
 
 let arr = localStorage.getItem('QuizCode') ? JSON.parse(localStorage.getItem('QuizCode')) : [];
 let getArr = []
-        /*let nameBtn = document.getElementById('name-btn')
-        nameBtn.onclick = () =>
-        {
-             nameId =  document.getElementById('name-txt').value
-            if(nameId.length==0)
-            {
-                alert('Enter a name or nickname')
-                return;
-            }
-            else
-            document.getElementById('name-txt').style.display='none'
-            document.getElementById('code-txt').style.display='inline'
-            document.getElementById('code-btn').style.display='inline'
-            nameBtn.style.display='none'
-        }*/
+       //the code entering input's validation and stuff code
         let codeBtn = document.getElementById('code-btn')
         codeBtn.onclick = () =>
         {
@@ -215,18 +223,14 @@ let getArr = []
                 return;
                 }
             }
-           /* if(quizId.value==localStorage.getItem('QuizCode'))
-            {
-                alert('You have attempted this quiz one time.You cannot attempt it')
-                quizId.value = ''
-                return;
-            }*/
+
             if(quizId.value.length==0)
             {
                 alert('Enter the code')
                 return;
             }
             else
+            document.getElementById('display-time').style.visibility = 'visible'
             codeBtn.style.display = 'none';
     document.getElementById('code-txt').style.display = 'none';
     document.getElementById('quiz-container').style.visibility = 'visible';
@@ -236,13 +240,16 @@ let getArr = []
           //  document.getElementById('quiz-container').classList.add('styleit')
 
 
+let displayTime = document.getElementById('display-time')
 
+//the code for the first question
 docRef.where("UniqueCode", "==", quizId.value)
 .get()
 .then((querySnapshot) =>
 {
 	querySnapshot.forEach((doc) =>
 	{
+        console.log(doc.data())
 		let vQuestion = document.getElementById('question-txt')
 		let optionA = document.getElementById('option-a-id')
 		let optionB = document.getElementById('option-b-id')
@@ -266,12 +273,33 @@ docRef.where("UniqueCode", "==", quizId.value)
 		
 		vQuestion.innerText= wQuizD[0].Question
 		
+        if(doc.data().TimeUnit=='s')
+        {
+            time = doc.data().TimeDuration
+            secInterval = setInterval(secondStart, 1000);
+
+           /* if(timer==0)
+            timer = doc.data().TimeDuration
+            timer--;
+            displayTime.innerText = timer*/
+        }
 	})
 })
+
+
+
         }
         let submitBtn = document.getElementById('submit-btn')
 	submitBtn.onclick = () =>
 	{
+        displayQuiz()
+    }	
+
+    //this funtion is called when the suer submits a question
+function displayQuiz()
+{
+    time = 10
+        //alert(time)
 		docRef.where("UniqueCode", "==",quizId.value)
 .get()
 	.then((querySnapshot) =>
@@ -296,11 +324,15 @@ docRef.where("UniqueCode", "==", quizId.value)
 		}
 					counter++;
 					ansCounter++;
-					realAnswer = wQuizD[ansCounter].Answer;
 					console.log(ansCounter)
 			currentQuiz = wQuizD[counter]
+
+            clearInterval(secInterval);
+
 			if(currentQuiz!=null)
 			{
+                secInterval = setInterval(secondStart, 1000);
+                realAnswer = wQuizD[ansCounter].Answer;
 				if(vAnswer==realAnswer)
 			{
 				score++;
@@ -324,7 +356,6 @@ docRef.where("UniqueCode", "==", quizId.value)
 		}
 				else
 			{
-				
 				if(vAnswer==realAnswer)
 				{
 					score++;
@@ -336,18 +367,41 @@ docRef.where("UniqueCode", "==", quizId.value)
 				}
 				docRef.doc(docId).update({
     UserData: firebase.firestore.FieldValue.arrayUnion(obje)
+                
 });
-			
+                document.getElementById('display-time').style.visibility = 'hidden'
 				document.getElementById('quiz-container').style.display='none'
 				let result = document.getElementById('result')
 				result.style.display='inline'
 				result.innerText = "You got " + score + " questions correctly"
+                return;
 			}
 		})
 	})	
-}	
+}
+function secondStart() 
+{
+    if (time === 0) 
+    {
+        clearInterval(secInterval);
+        displayQuiz()
 
-    
+        console.log('time up')
+     //   return;
+    } 
+        else 
+        {
+            time--;
+            if (time !== -1) {	
+                
+                let sound = new Audio('clock-ticking.wav')
+                sound.play()
+                document.getElementById('display-time').innerText = time
+                //displayTime.innerText = time
+           // console.log(time + " seconds remaining");
+            }
+        }
+    }
     </script>
 </body>
 </html>
