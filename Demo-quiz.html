@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzes</title>
+    <style>
+        body{
+            background-image: url('background.jpg');
+            font-family: 'Courier New', Courier, monospace;
+            color: white;
+        }
+        #header{
+            font-size: 30px;
+            background: none;
+            text-shadow: 0 0 5px black, 0 0 10px white, 0 0 15px blue;
+        }
+        h1{
+            background: lightgray;
+            font-size: 50px;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+        #tech-play{
+            color:blue;
+            text-shadow: 0 0 5px white, 0 0 8px black, 0 0 15px darkblue;
+        }
+        #science-play{
+            color:orange;
+            text-shadow: 0 0 5px black, 0 0 10px orange, 0 0 15px red;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1 id="header">SELECT A QUIZ</h1>
+        <div id="option-container">
+            <h1 id="tech-play">Technical quiz</h1>
+            <h1 id="science-play">Science quiz</h1>
+        </div>
+    </center>
+    <script>
+        let scienceBtn = document.getElementById('science-play')
+        scienceBtn.onclick = (e) =>
+        {
+            ///alert(e.target.innerText)
+            window.location.href=`try-quiz-options.html?QuizName=` + e.target.innerText
+            //window.location.href=`offline-quiz.html?QuizInfo=` + val;
+            //window.open('try-quiz-options.html', 'blank')
+        }
+    </script>
+</body>
+</html>
