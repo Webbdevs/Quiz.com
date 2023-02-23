@@ -36,7 +36,7 @@ h1,h2{
 	background-image: url('background-img.jpg');
 	border-radius:10px;
 	width:400px;
-	height:200px;
+	height:auto;
 	text-align:left;
     visibility: hidden;
 }
@@ -107,11 +107,11 @@ background:limegreen;
           </div>
           <button id="submit-btn">Submit and attempt next question</button>
           </div>
-            <br><br>
               <div id="display-time"></div>
           <h1 id="result"></h1>
     </center>
     <script>
+      let docName = ''
       //this works by getting the answer in event.target
         let ansCol = ''
 let docId = ''
@@ -152,9 +152,13 @@ console.log(quizRef);
 
 if(quizRef=='Science quiz')
 {
-  
+  docName = 'Science-quiz-org'
 }
-let docName = 'Scince-quiz-org'
+  else
+  {
+    docName = quizRef.replace(' ', '-')
+  }
+
 timeUnit = time[time.length - 1]
 timeDuration = time.substr(0, time.length - 1)
 console.log(timeDuration)
@@ -194,9 +198,9 @@ function displaySome()
     document.getElementById('display-time').style.visibility = 'visible'
     document.getElementById('quiz-container').style.visibility = 'visible';
     document.getElementById('btn').style.display='none'
-    if (quizRef === "Science quiz") 
-  {
-      getQuiz("Science-quiz-org")
+   // if (quizRef === "Science quiz") 
+  //{
+      getQuiz(docName)
       .then((wQuiz) => 
       {
           for(let i = 0; i <=questNo - 1; i++)
@@ -205,6 +209,7 @@ function displaySome()
           {
             randomIndex = Math.floor(Math.random() * wQuiz.length);
           }
+          console.log(randomIndex)
           lastRandomIndex = randomIndex;
           chosedArr.push(wQuiz[randomIndex])
           console.log(wQuiz[randomIndex].Answer);
@@ -212,7 +217,7 @@ function displaySome()
         console.log(chosedArr)
       displayFQuiz(chosedArr,randomIndex)
     })
-  } 
+  //} 
 }
 //this is the first question after clicking start the quiz the wQuiz is the selected questions.this displays the questions and options the first one
 function displayFQuiz(wQuiz)
@@ -227,6 +232,13 @@ function displayFQuiz(wQuiz)
 			//	wQuiz = doc.data().QuizData
 				
     console.log(wQuiz)  
+    wQuiz[0].Question = wQuiz[0].Question.trim()
+    wQuiz[0].OptionA = wQuiz[0].OptionA.trim()
+    wQuiz[0].OptionB = wQuiz[0].OptionB.trim()
+    wQuiz[0].OptionC = wQuiz[0].OptionC.trim()
+    wQuiz[0].OptionD = wQuiz[0].OptionD.trim()
+    wQuiz[0].Answer = wQuiz[0].Answer.trim()
+
 		change_text1 = optionA.childNodes[0]
 		change_text1.nodeValue = wQuiz[0].OptionA
 		
@@ -254,15 +266,16 @@ function displayFQuiz(wQuiz)
             minInterval = setInterval(minuteStart, 1000)
         }
 }
-
 //the function when clicked send the seletced array of questions and doc name to he fucntion called on click
 let submitBtn = document.getElementById('submit-btn')
     submitBtn.onclick = () =>
 	{
-      if (quizRef === "Science quiz") 
+    //alert('fuck')
+    displayQuiz(chosedArr,docName)
+     /* if (quizRef === "Science quiz") 
     {
-      displayQuiz(chosedArr,"Science-quiz-org")
-    }
+      displayQuiz(chosedArr,docName)
+    }*/
   } 
   //this fucntion does a lot of things it receives the quiz and doc name as params.then it appends the questions check the correct answer clear's the timer. sets the timer
 
@@ -312,12 +325,18 @@ let submitBtn = document.getElementById('submit-btn')
             {
                 minInterval = setInterval(minuteStart, 1000)
             }
-				if(vAnswer==realAnswer)
+				if(vAnswer===realAnswer)
 			{
 				score++;
 				console.log(score + 'answer')
 			}
              //  else if(vAnswer)
+             currentQuiz.Question = currentQuiz.Question.trim()
+             currentQuiz.OptionA = currentQuiz.OptionA.trim()
+             currentQuiz.OptionB = currentQuiz.OptionB.trim()
+             currentQuiz.OptionC = currentQuiz.OptionC.trim()
+             currentQuiz.OptionD = currentQuiz.OptionD.trim()
+             currentQuiz.Answer = currentQuiz.Answer.trim()
 			vQuestion.innerText = currentQuiz.Question
 			//console.log(realAnswer)
 		change_text1 = optionA.childNodes[0]
@@ -335,7 +354,7 @@ let submitBtn = document.getElementById('submit-btn')
 				else
 			{
 				
-				if(vAnswer==realAnswer)
+				if(vAnswer===realAnswer)
 				{
 					score++;
 				}
@@ -365,7 +384,7 @@ function secondStart()
     if (timeDuration === 0) 
     {
         clearInterval(secInterval);
-        displayQuiz(chosedArr,'Science-quiz-org')
+        displayQuiz(chosedArr,docName)
         //alert(realQuiz)
         console.log('time up')
      //   return;
@@ -395,7 +414,7 @@ function secondStart()
   if (timeDuration === -1) {
     console.log('time up')
     clearInterval(minInterval);
-    displayQuiz(chosedArr,'Science-quiz-org')
+    displayQuiz(chosedArr,docName)
   }
    else { 
 	displaySec--;
