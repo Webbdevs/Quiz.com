@@ -12,7 +12,7 @@
         }
         #online-play{
             color:red;
-            text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple;
+
         }
         #friend-play{
             color:red;
@@ -22,21 +22,41 @@
             color:orange;
             text-shadow: 0 0 5px red, 0 0 10px red, 0 0 15px red;
         }
-        #my-play{
+        #search-play{
             text-shadow: 0 0 5px white, 0 0 10px lime, 0 0 15px limegreen;
             color:limegreen;
         }
+        #offline-play{
+            color:yellow;
+            text-shadow: 0 0 5px white, 0 0 10px black, 0 0 15px yellow;
+        }
+        #my-play{
+            color:violet;
+            text-shadow: 0 0 5px black, 0 0 10px violet, 0 0 15px purple;
+        }
         h1{
-            font-size: 50px;
+            font-size: 40px;
             cursor: pointer;
-            background-color: lightblue;
-            /*background-image: url('background-img.jpg');*/
+            background-color: lightgray;
+            border-radius: 20px;
+            /*color: black;
+            text-shadow: 3px 2px white;*/
         }
         #text-container{
 	text-align:center;
     color:white;
     font-weight: bold;
     font-size:20px;
+}
+footer{
+    color: black;
+    background: white;
+    width:100%;
+    text-align: center;
+    position: relative;
+    bottom:-100px;
+    font-weight: bold;
+    font-size: 20px;
 }
     </style>
 </head>
@@ -47,9 +67,11 @@
         </div><br><br>
     <center>
         <div id="page-container">
-        <h1 id="friend-play">PLAY WITH FRIENDS</h1>
-        <h1 id="quiz-play">MAKE QUIZ FOR FRIENDS</h1>
-        <h1 class='glowing-text'id="my-play">MY QUIZZES</h1>
+        <h1 id="friend-play">Attempt Quiz</h1>
+        <h1 id="quiz-play">Make Quiz For Friends</h1>
+        <h1 id="search-play">Search For A Quiz</h1>
+        <h1 id="offline-play">Try some quizzes</h1>
+        <h1 class='glowing-text'id="my-play">My Quizzes</h1>
         </div>
     </center>
     <script>
@@ -95,7 +117,17 @@
         let myQuiz = document.getElementById('my-play')
         myQuiz.onclick = () =>
         {
-            window.open("my-quiz.html", "blank")
+            window.open("my-quiz-new.html", "blank")
+        }
+        let searchBtn = document.getElementById('search-play')
+        searchBtn.onclick = () =>
+        {
+            window.open("search-page.html", "_blank")
+        }
+        let offlineBtn = document.getElementById('offline-play')
+        offlineBtn.onclick = () =>
+        {
+            window.open("Demo-quiz.html", "_blank")
         }
     </script>
 </body>
