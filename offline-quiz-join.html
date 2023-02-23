@@ -146,9 +146,6 @@ let time = urlParams.get('Time');
 let questNo = urlParams.get('QuestionNo');
 let quizRef = urlParams.get('Quizname');
 
-console.log(time);
-console.log(questNo);
-console.log(quizRef);
 
 if(quizRef=='Science quiz')
 {
@@ -161,8 +158,6 @@ if(quizRef=='Science quiz')
 
 timeUnit = time[time.length - 1]
 timeDuration = time.substr(0, time.length - 1)
-console.log(timeDuration)
-console.log(timeUnit)
 //configurung firebase
 let firebaseConfig = {
           apiKey: "AIzaSyB2dc7G54nZg1H-tKUbxRtWmADEQxRJv10",
@@ -209,12 +204,12 @@ function displaySome()
           {
             randomIndex = Math.floor(Math.random() * wQuiz.length);
           }
-          console.log(randomIndex)
+          (randomIndex)
           lastRandomIndex = randomIndex;
           chosedArr.push(wQuiz[randomIndex])
-          console.log(wQuiz[randomIndex].Answer);
+
         } 
-        console.log(chosedArr)
+        (chosedArr)
       displayFQuiz(chosedArr,randomIndex)
     })
   //} 
@@ -228,10 +223,9 @@ function displayFQuiz(wQuiz)
 		let optionC = document.getElementById('option-c-id')
 		let optionD = document.getElementById('option-d-id')
 		
-    //console.log(quizIndex)
+    //(quizIndex)
 			//	wQuiz = doc.data().QuizData
 				
-    console.log(wQuiz)  
     wQuiz[0].Question = wQuiz[0].Question.trim()
     wQuiz[0].OptionA = wQuiz[0].OptionA.trim()
     wQuiz[0].OptionB = wQuiz[0].OptionB.trim()
@@ -281,9 +275,8 @@ let submitBtn = document.getElementById('submit-btn')
 
   function displayQuiz(wQuiz,quizIds)
     {
-      console.log(wQuiz)
        // alert(quizIds)
-                    //console.log(minuteConv)
+                    //(minuteConv)
             timeDuration = time.substr(0, time.length - 1)
                 minuteConv = timeDuration * 60
             displaySec = 60
@@ -303,7 +296,6 @@ let submitBtn = document.getElementById('submit-btn')
 					counter++;
 					ansCounter++;
 					realAnswer = wQuiz[ansCounter].Answer;
-					console.log(ansCounter)
 			currentQuiz = wQuiz[counter]
 
             if(timeUnit=='s')
@@ -328,7 +320,6 @@ let submitBtn = document.getElementById('submit-btn')
 				if(vAnswer===realAnswer)
 			{
 				score++;
-				console.log(score + 'answer')
 			}
              //  else if(vAnswer)
              currentQuiz.Question = currentQuiz.Question.trim()
@@ -338,7 +329,7 @@ let submitBtn = document.getElementById('submit-btn')
              currentQuiz.OptionD = currentQuiz.OptionD.trim()
              currentQuiz.Answer = currentQuiz.Answer.trim()
 			vQuestion.innerText = currentQuiz.Question
-			//console.log(realAnswer)
+			//(realAnswer)
 		change_text1 = optionA.childNodes[0]
 		change_text1.nodeValue = currentQuiz.OptionA
 		
@@ -386,7 +377,6 @@ function secondStart()
         clearInterval(secInterval);
         displayQuiz(chosedArr,docName)
         //alert(realQuiz)
-        console.log('time up')
      //   return;
     } 
         else 
@@ -398,7 +388,7 @@ function secondStart()
                 sound.play()
                 document.getElementById('display-time').innerText = timeDuration
                 //displayTime.innerText = time
-           // console.log(time + " seconds remaining");
+           // (time + " seconds remaining");
             }
         }
     }
@@ -406,13 +396,11 @@ function secondStart()
 {
 	if(minuteConv % 60==0)
 	{
-        console.log(timeDuration)
-        console.log('seconds to 0')
         timeDuration--;
-		//console.log(time) 
+		//(time) 
 	}
   if (timeDuration === -1) {
-    console.log('time up')
+    ('time up')
     clearInterval(minInterval);
     displayQuiz(chosedArr,docName)
   }
@@ -420,7 +408,6 @@ function secondStart()
 	displaySec--;
 
     minuteConv--;
-    console.log(timeDuration + ': ' + minuteConv);
     document.getElementById('display-time').innerText = timeDuration + ':' + displaySec
   }
 }
