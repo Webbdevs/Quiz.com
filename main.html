@@ -96,7 +96,6 @@ footer{
         <h1 class='glowing-text'id="my-play">My Quizzes</h1>
         </div>
     </center>
-    <button onclick="changeCol()"id="color-btn">Light mode</button>
     <!--footer>
         <div id="about">About</div>
     </footer-->
@@ -143,7 +142,7 @@ footer{
         let myQuiz = document.getElementById('my-play')
         myQuiz.onclick = () =>
         {
-            window.open("my-quiz-new.html", "blank")
+            window.open("my-quiz.html", "blank")
         }
         let aboutBtn = document.getElementById('about')
         //aboutBtn.onclick = () =>
@@ -160,24 +159,6 @@ footer{
         {
             window.open("Demo-quiz.html", "_blank")
         }
-
-
-        let colorBtn = document.getElementById('color-btn');
-
-function changeCol() {
-  let body = document.querySelector('body');
-  
-  if (colorBtn.innerText == 'Light mode') {
-    colorBtn.innerText = 'Dark mode';
-    body.classList.add('light-txt');
-    body.classList.remove('dark-txt');
-  } else if (colorBtn.innerText == 'Dark mode') {
-    colorBtn.innerText = 'Light mode';
-    body.classList.add('dark-txt');
-    body.classList.remove('light-txt');
-  }
-}
-
     </script>
 </body>
 </html>
