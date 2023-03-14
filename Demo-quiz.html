@@ -24,11 +24,15 @@
         }
         #tech-play{
             color:blue;
-            text-shadow: 0 0 5px white, 0 0 8px black, 0 0 15px darkblue;
+            text-shadow: 0 0 5px black, 0 0 10px darkblue, 0 0 15px darkblue;
         }
         #science-play{
             color:orange;
             text-shadow: 0 0 5px black, 0 0 10px orange, 0 0 15px red;
+        }
+        #sports-play{
+            color:limegreen;
+            text-shadow: 0 0 5px black, 0 0 10px lime, 0 0 15px lime;
         }
     </style>
 </head>
@@ -36,19 +40,28 @@
     <center>
         <h1 id="header">SELECT A QUIZ</h1>
         <div id="option-container">
-            <h1 id="tech-play">Technical quiz</h1>
-            <h1 id="science-play">Science quiz</h1>
+            <h1 class='offline' id="tech-play">Tech quiz</h1>
+            <h1 class='offline' id="science-play">Science quiz</h1>
+            <h1 class='offline' id="sports-play">Sports quiz</h1>
         </div>
     </center>
     <script>
-        let scienceBtn = document.getElementById('science-play')
+        let allBtns = document.querySelectorAll('.offline')
+        for(let singleBtn of allBtns)
+        {
+            singleBtn.onclick = (e) =>
+            {
+                window.location.href=`try-quiz-options.html?QuizName=` + e.target.innerText
+                return;
+            }
+        }
+        /*let scienceBtn = document.getElementById('science-play')
         scienceBtn.onclick = (e) =>
         {
             ///alert(e.target.innerText)
-            window.location.href=`try-quiz-options.html?QuizName=` + e.target.innerText
             //window.location.href=`offline-quiz.html?QuizInfo=` + val;
             //window.open('try-quiz-options.html', 'blank')
-        }
+        }*/
     </script>
 </body>
 </html>
