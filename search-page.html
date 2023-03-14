@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 <style>
-    input{
+    input
+    {
         width:300px;
         height:30px;
         border-radius: 10px;
@@ -80,15 +81,18 @@ h1
         {
             let vContainer = document.getElementById('append-container')
             vContainer.innerHTML = ''
-            docRef.where('QuizType', "==", "Public")
+            //docRef.where('QuizType', "==", "Public")
+            docRef
             .get()
             .then((querySnapshot) =>
             {
                 querySnapshot.forEach((doc) =>
                 {
                     let titleContent = document.createElement('div')
+                    const regex = new RegExp('.*' + searchTxt + '.*', 'i');
 
-                    if (doc.data().Title.toLowerCase().includes(searchTxt.toLowerCase())) 
+                   // if (doc.data().Title.toLowerCase().includes(searchTxt.toLowerCase()))
+                   if (regex.test(doc.data().Title)) 
                     {
                         titleContent.id = 'title-id'
                         titleContent.innerText = doc.data().Title
