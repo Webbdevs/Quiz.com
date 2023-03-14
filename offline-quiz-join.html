@@ -111,7 +111,12 @@ background:limegreen;
           <h1 id="result"></h1>
     </center>
     <script>
+            let sound = new Audio("Stopwatch.mp3")
+      let alarmSound = new Audio("clock-ticking.wav")
+      let quizGap;
       let docName = ''
+
+      let soundStop;
       //this works by getting the answer in event.target
         let ansCol = ''
 let docId = ''
@@ -209,7 +214,7 @@ function displaySome()
           chosedArr.push(wQuiz[randomIndex])
 
         } 
-        (chosedArr)
+      //  (chosedArr)
       displayFQuiz(chosedArr,randomIndex)
     })
   //} 
@@ -217,14 +222,13 @@ function displaySome()
 //this is the first question after clicking start the quiz the wQuiz is the selected questions.this displays the questions and options the first one
 function displayFQuiz(wQuiz)
 {
+  soundStop=false
+  sound.play()
   let vQuestion = document.getElementById('question-txt')
 		let optionA = document.getElementById('option-a-id')
 		let optionB = document.getElementById('option-b-id')
 		let optionC = document.getElementById('option-c-id')
 		let optionD = document.getElementById('option-d-id')
-		
-    //(quizIndex)
-			//	wQuiz = doc.data().QuizData
 				
     wQuiz[0].Question = wQuiz[0].Question.trim()
     wQuiz[0].OptionA = wQuiz[0].OptionA.trim()
@@ -264,17 +268,20 @@ function displayFQuiz(wQuiz)
 let submitBtn = document.getElementById('submit-btn')
     submitBtn.onclick = () =>
 	{
-    //alert('fuck')
-    displayQuiz(chosedArr,docName)
-     /* if (quizRef === "Science quiz") 
-    {
-      displayQuiz(chosedArr,docName)
-    }*/
+    setTimeout(function() {
+      clearInterval(secInterval)
+      soundStop = true
+     // secondStart()
+     // alarmSound.pause() 
+    displayQuiz(chosedArr, docName);
+  }, 1000);
+
   } 
   //this fucntion does a lot of things it receives the quiz and doc name as params.then it appends the questions check the correct answer clear's the timer. sets the timer
 
   function displayQuiz(wQuiz,quizIds)
     {
+      soundStop=false;
        // alert(quizIds)
                     //(minuteConv)
             timeDuration = time.substr(0, time.length - 1)
@@ -301,6 +308,7 @@ let submitBtn = document.getElementById('submit-btn')
             if(timeUnit=='s')
             {
              clearInterval(secInterval);
+            // alarmSound.pause()
             }
                 else if(timeUnit=='m')
                 {
@@ -309,6 +317,7 @@ let submitBtn = document.getElementById('submit-btn')
 
 			if(currentQuiz!=null)
 			{
+        sound.play()
                 if(timeUnit=='s')
             {
                   secInterval = setInterval(secondStart, 1000);
@@ -366,6 +375,7 @@ let submitBtn = document.getElementById('submit-btn')
 				//document.getElementById('org-answers').style.display='inline'
 								
 			}
+      clearInterval(quizGap)
 }
 
 //getQuiz("my-quiz-name")
@@ -384,9 +394,13 @@ function secondStart()
           timeDuration--;
             if (timeDuration !== -1) 
             {	    
-                let sound = new Audio('clock-ticking.wav')
-                sound.play()
+
+                alarmSound.play()
                 document.getElementById('display-time').innerText = timeDuration
+            //  else
+          //    alert('sound-top')
+           //   console.log('bell')
+               // let sound = new Audio('clock-ticking.wav')
                 //displayTime.innerText = time
            // (time + " seconds remaining");
             }
@@ -400,6 +414,7 @@ function secondStart()
 		//(time) 
 	}
   if (timeDuration === -1) {
+    alarmSound.play()
     ('time up')
     clearInterval(minInterval);
     displayQuiz(chosedArr,docName)
